@@ -229,13 +229,8 @@ function buildGalleryDeck() {
             fallback.style.display = "flex";
         };
 
-        var caption = document.createElement("div");
-        caption.className = "deck-card__caption";
-        caption.textContent = item.caption;
-
         card.appendChild(img);
         card.appendChild(fallback);
-        card.appendChild(caption);
 
         (function(i) {
             card.addEventListener("click", function() { openLightbox(i); });
