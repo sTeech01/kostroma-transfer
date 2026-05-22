@@ -1,0 +1,7 @@
+# Development screenshots
+assets/screenshots/
+
+# Claude Code internal files
+.claude/
+claude.md
+CLAUDE.md
