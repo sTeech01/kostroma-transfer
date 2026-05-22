@@ -13,10 +13,10 @@ var CONFIG = {
 // GALLERY
 // ========================
 var GALLERY = [
-    { src: "assets/car-front.webp",        alt: "Changan Uni-V вид спереди",       caption: "Вид спереди" },
-    { src: "assets/car-side.webp",         alt: "Changan Uni-V вид сбоку",         caption: "Вид сбоку" },
-    { src: "assets/car-salon-front.webp",  alt: "Салон Changan Uni-V спереди",     caption: "Салон спереди" },
     { src: "assets/car-salon-rear.webp",   alt: "Задний ряд Changan Uni-V",        caption: "Задний ряд" },
+    { src: "assets/car-side.webp",         alt: "Changan Uni-V вид сбоку",         caption: "Вид сбоку" },
+    { src: "assets/car-front.webp",        alt: "Changan Uni-V вид спереди",       caption: "Вид спереди" },
+    { src: "assets/car-salon-front.webp",  alt: "Салон Changan Uni-V спереди",     caption: "Салон спереди" },
     { src: "assets/car-salon.webp",        alt: "Салон Changan Uni-V",             caption: "Чистый салон" }
 ];
 
