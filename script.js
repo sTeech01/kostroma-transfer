@@ -13,11 +13,11 @@ var CONFIG = {
 // GALLERY
 // ========================
 var GALLERY = [
-    { src: "assets/car-exterior-1.webp",    alt: "Changan Uni-V внешний вид",      caption: "Внешний вид" },
-    { src: "assets/car-exterior-2.webp",    alt: "Changan Uni-V второй ракурс",    caption: "Новый автомобиль" },
-    { src: "assets/car-interior-front.webp",alt: "Салон Changan Uni-V спереди",    caption: "Салон спереди" },
-    { src: "assets/car-interior-back.webp", alt: "Задний ряд Changan Uni-V",       caption: "Задний ряд" },
-    { src: "assets/car-trunk.webp",         alt: "Багажник Changan Uni-V",         caption: "Багажник" }
+    { src: "assets/car-front.webp",        alt: "Changan Uni-V вид спереди",       caption: "Вид спереди" },
+    { src: "assets/car-side.webp",         alt: "Changan Uni-V вид сбоку",         caption: "Вид сбоку" },
+    { src: "assets/car-salon-front.webp",  alt: "Салон Changan Uni-V спереди",     caption: "Салон спереди" },
+    { src: "assets/car-salon-rear.webp",   alt: "Задний ряд Changan Uni-V",        caption: "Задний ряд" },
+    { src: "assets/car-salon.webp",        alt: "Салон Changan Uni-V",             caption: "Чистый салон" }
 ];
 
 // ========================
