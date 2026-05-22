@@ -20,16 +20,6 @@ var GALLERY = [
     { src: "assets/car-salon.webp",        alt: "Салон Changan Uni-V",             caption: "Чистый салон" }
 ];
 
-// ========================
-// FAN POSITIONS (desktop)
-// ========================
-var DECK_POSITIONS = [
-    { x: -180, rot: -15, scale: 0.87, z: 1 },
-    { x:  -90, rot:  -7, scale: 0.93, z: 2 },
-    { x:    0, rot:   0, scale: 1.00, z: 3 },
-    { x:   90, rot:   7, scale: 0.93, z: 2 },
-    { x:  180, rot:  15, scale: 0.87, z: 1 }
-];
 
 // ========================
 // ROUTES
@@ -207,9 +197,12 @@ function buildGalleryDeck() {
     var wrap = document.getElementById("galleryDeck");
     if (!wrap) return;
 
+    var thumbs = document.createElement("div");
+    thumbs.className = "deck-thumbs";
+
     GALLERY.forEach(function(item, idx) {
         var card = document.createElement("div");
-        card.className = "deck-card";
+        card.className = idx === 0 ? "deck-card deck-card--main" : "deck-card deck-card--thumb";
         card.setAttribute("data-idx", String(idx));
 
         var img = document.createElement("img");
@@ -220,83 +213,28 @@ function buildGalleryDeck() {
 
         var fallback = document.createElement("div");
         fallback.className = "deck-card__fallback";
-        fallback.innerHTML =
-            '<span class="deck-card__fallback-label">Changan Uni-V</span>' +
-            '<span class="deck-card__fallback-caption">' + item.caption + '</span>';
+        fallback.innerHTML = '<span class="deck-card__fallback-label">Changan Uni-V</span>';
 
         img.onerror = function() {
             this.style.display = "none";
             fallback.style.display = "flex";
         };
 
-        var caption = document.createElement("div");
-        caption.className = "deck-card__caption";
-        caption.textContent = item.caption;
-
         card.appendChild(img);
         card.appendChild(fallback);
-        card.appendChild(caption);
 
-        (function(i) {
-            card.addEventListener("click", function() { openLightbox(i); });
-            card.addEventListener("mouseenter", function() { deckHover(wrap, i); });
-            card.addEventListener("mouseleave", function() { deckLeave(wrap); });
-        })(idx);
+        card.addEventListener("click", (function(i) {
+            return function() { openLightbox(i); };
+        })(idx));
 
-        wrap.appendChild(card);
+        if (idx === 0) {
+            wrap.appendChild(card);
+        } else {
+            thumbs.appendChild(card);
+        }
     });
 
-    applyDeckLayout();
-}
-
-function applyDeckLayout() {
-    var wrap = document.getElementById("galleryDeck");
-    if (!wrap) return;
-
-    var isFan = window.innerWidth >= 560;
-    if (isFan) {
-        wrap.classList.add("is-fan");
-    } else {
-        wrap.classList.remove("is-fan");
-    }
-
-    var cards = wrap.querySelectorAll(".deck-card");
-    if (isFan) {
-        for (var i = 0; i < cards.length && i < DECK_POSITIONS.length; i++) {
-            var pos = DECK_POSITIONS[i];
-            cards[i].style.transform = 'translateX(calc(-50% + ' + pos.x + 'px)) translateY(-50%) rotate(' + pos.rot + 'deg) scale(' + pos.scale + ')';
-            cards[i].style.zIndex = pos.z;
-            cards[i].style.filter = '';
-        }
-    } else {
-        for (var j = 0; j < cards.length; j++) {
-            cards[j].style.transform = '';
-            cards[j].style.zIndex = '';
-            cards[j].style.filter = '';
-        }
-    }
-}
-
-function deckHover(wrap, hoveredIdx) {
-    if (window.innerWidth < 560) return;
-    var cards = wrap.querySelectorAll(".deck-card");
-    for (var i = 0; i < cards.length && i < DECK_POSITIONS.length; i++) {
-        var pos = DECK_POSITIONS[i];
-        if (i === hoveredIdx) {
-            cards[i].style.transform = 'translateX(calc(-50% + ' + pos.x + 'px)) translateY(-55%) rotate(0deg) scale(1.1)';
-            cards[i].style.zIndex = 10;
-            cards[i].style.filter = 'brightness(1.1)';
-        } else {
-            var spread = (i < hoveredIdx) ? -24 : 24;
-            cards[i].style.transform = 'translateX(calc(-50% + ' + (pos.x + spread) + 'px)) translateY(-50%) rotate(' + pos.rot + 'deg) scale(' + (pos.scale * 0.96) + ')';
-            cards[i].style.zIndex = pos.z;
-            cards[i].style.filter = 'brightness(0.6)';
-        }
-    }
-}
-
-function deckLeave(wrap) {
-    applyDeckLayout();
+    wrap.appendChild(thumbs);
 }
 
 // ========================
@@ -744,5 +682,5 @@ document.addEventListener("DOMContentLoaded", function() {
     initLinks();
     initLightbox();
     initWelcomePopup();
-    window.addEventListener("resize", applyDeckLayout);
+    // resize: no dynamic layout needed
 });
